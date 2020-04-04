@@ -50,13 +50,13 @@ route.post('/updateImg', function (req, res) {
         let newFile = path.join(__dirname, '../mongo/img/')
         fs.rename(oldFile, newFile + ceil + date + type, (err) => {
             if (!err) {
-                var imgUrl = 'http://192.168.0.108:3000/mongo/img/' + ceil + date + type
+                var imgUrl = 'http://127.0.0.1:3000/mongo/img/' + ceil + date + type   
                 users.updateOne({
                     username: req.data.name
                 }, {
                     imgUrl: imgUrl
                 }).then(item => {
-                    fields.oldfile = fields.oldfile.split("http://192.168.0.108:3000/mongo/img/")[1]
+                    fields.oldfile = fields.oldfile.split("http://127.0.0.1:3000/mongo/img/")[1]
                     console.log(__dirname + fields.oldfile)
                     fs.unlink(newFile + fields.oldfile, (err) => {        //上传图片 先删除原本图片的位置 
                         if (!err) {
