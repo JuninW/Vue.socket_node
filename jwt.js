@@ -1,13 +1,13 @@
 var jwt = require('jsonwebtoken');
 var signkey = 'juninToken';
 
-exports.setToken = function (username, password) {
+exports.setToken = function (username, id) {
     return new Promise((resolve, reject) => {
         const token = jwt.sign({
             name: username,
-            _id: password
+            _id: id
         }, signkey, {
-            expiresIn: '30d'
+            expiresIn: '30d'    //30天
         });
         resolve(token);
     })
