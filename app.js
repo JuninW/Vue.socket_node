@@ -48,10 +48,12 @@ mongoose.connect('mongodb://localhost/ws_demo', {
     //用户连接  
     io.on('connection', socket => {
       console.log('当前用户 id:' + socket.id)
+
       var socketid = socket.id //获取 用户 socket.id
-      socket.on('login', (userid) => { //每次登录 的时候  就会向 mongoDB中 映射新的数据 
+      socket.on('login', (userid) => { //每次登录 的时候  就会向 mongoDB中 映射新的数据        
         socketHeard.saveUserSocketId(userid, socketid)
       })
+      
       socket.on('chat', (data) => { //服务端收到 用户发来的信息 (data)指的是 接收人的uid等一系列参数 
         console.log(data)
         Idtoid.findOne({

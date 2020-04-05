@@ -22,6 +22,7 @@ module.exports = new Schema ({
         required:true
     },
     imgUrl:{
-        required:false
+        required:false,
+        default:''
     }
 })
