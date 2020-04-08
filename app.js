@@ -52,8 +52,16 @@ mongoose.connect('mongodb://localhost/ws_demo', {
       var socketid = socket.id //获取 用户 socket.id
       socket.on('login', (userid) => { //每次登录 的时候  就会向 mongoDB中 映射新的数据        
         socketHeard.saveUserSocketId(userid, socketid)
-      })
-      
+
+
+        socket.emit('login',{
+            message:'登录成功',
+            id:socketid
+        })
+    })
+
+
+
       socket.on('chat', (data) => { //服务端收到 用户发来的信息 (data)指的是 接收人的uid等一系列参数 
         console.log(data)
         Idtoid.findOne({
@@ -61,7 +69,7 @@ mongoose.connect('mongodb://localhost/ws_demo', {
         }).then(rs => {
           console.log(rs)
           //找到对应用户后 将a的消息 转发给 b
-          socket.to(rs.socketid).emit({
+          socket.to(rs.socketid).emit('newMessage',{
             f_id: data.form_id,
             time: data.time,
             message: data.data

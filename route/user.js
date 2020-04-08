@@ -101,6 +101,7 @@ route.post('/Addfriends', function (req, res) {
         }
         if (status != 'error') {
             //如果 有则 添加 如果没有 则 创建 
+            //单向添加
             Friends.updateOne({
                 username: req.data.name
             }, {
@@ -110,6 +111,7 @@ route.post('/Addfriends', function (req, res) {
             }, {
                 upsert: true
             }).then(index => {
+
                 return res.status(200).send({
                     status:'200',
                     message: '添加好友成功!'
